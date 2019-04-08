@@ -9,7 +9,6 @@ import { NotFoundComponent } from './views/errors/not-found/not-found.component'
 //import { Dashboard1Component } from './views/dashboards/dashboard1/dashboard1.component';
 import { Dashboard2Component } from './views/dashboards/dashboard2/dashboard2.component';
 
-
 const routes: Route[] = [
   { path: '', pathMatch: 'full', redirectTo: 'dashboards/v1' },
   { path: 'dashboards', children:

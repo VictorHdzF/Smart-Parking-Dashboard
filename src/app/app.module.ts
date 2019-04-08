@@ -10,6 +10,7 @@ import { AppRoutes } from './app.routes.service';
 import { ViewsModule } from './views/views.module';
 import { SharedModule } from './shared/shared.module';
 import { ErrorModule } from './views/errors/error.module';
+import { HttpClientModule } from '@angular/common/http';
 
 // main layout
 import { NavigationModule } from './main-layout/navigation/navigation.module';
@@ -23,6 +24,7 @@ import { NavigationModule } from './main-layout/navigation/navigation.module';
       apiKey: ''
     }),
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     NavigationModule,
     AppRoutes,
