@@ -1,0 +1,8 @@
+runtime: nodejs8 # For Node.js 8, use runtime: nodejs8
+
+instance_class: F1
+
+handlers:
+- url: /favicon\.ico
+  static_files: src/favicon.ico
+  upload: src/favicon\.ico
