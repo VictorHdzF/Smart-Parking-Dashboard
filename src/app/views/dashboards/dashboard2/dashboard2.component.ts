@@ -1,18 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { MatGridTile } from '@angular/material';
+import { forEach } from '@angular/router/src/utils/collection';
+
 
 export interface Tile {
   color: "lightgreen";
   cols: 1;
   rows: 1;
   text: string;
+  ID: number;
 }
 
-export interface Config {
-  occupied: string;
-  spaceID: string;
-}
+export interface Lot {
+  occupied: boolean;
+  spaceID: number;
+  x: number;
+  y: number;
+} 
 
 @Component({
   selector: 'app-dashboard2',
@@ -23,40 +29,65 @@ export interface Config {
 @Injectable()
 export class Dashboard2Component implements OnInit {
 
-  constructor(private http: HttpClient) {
+  constructor(private httpClient: HttpClient) {
   }
 
-  ngOnInit() {
+  configUrl = 'http://34.66.27.157/api/v1/occupied';
+
+  lots : Lot[] = [];
+  tiles : Tile[] = [];
+  
+async getConfig() {
+    this.httpClient.get(this.configUrl).subscribe((res : Lot[])=>{
+    console.log(res);
+    this.lots = res;
+  });
+}
+
+async createTiles(){
+  for(var i = 1; i <= 22; i++)
+  {
+    this.tiles.push({
+      color: 'lightgreen',
+      cols: 1,
+      rows: 1,
+      text: i.toString(),
+      ID: i,
+    })
   }
-
-  configUrl = '/../../../../assets/config.json';
-
-getConfig() {
-  return this.http.get(this.configUrl);
 }
 
-config: Config;
+/*async validateData(){
+  console.log("hola");
+  this.lots.forEach(function (value: { occupied: boolean; spaceID: number; }){
+    if(value.occupied){
+      this.tiles.forEach(function (value2: { ID: number; color: string; }){
+        if(value.spaceID == value2.ID){
+          value2.color = "red";
+          console.log(value2.ID.toString());
+        }
+      });
+    }
+  });
+}*/
 
-showConfig() {
-  this.getConfig()
-    .subscribe((data: Config) => this.config = {
-        occupied:  data['occupied'],
-        spaceID: data['spaceID']
-    });
+async validateData(){
+  console.log("hola");
+  this.lots.forEach(function (value: { occupied: boolean; spaceID: number; }){
+    if(value.occupied){
+      this.tiles.forEach(function (value2: { ID: number; color: string; }){
+        if(value.spaceID == value2.ID){
+          value2.color = "red";
+          console.log(value2.ID.toString());
+        }
+      });
+    }
+  });
 }
 
-  tiles: Tile[] = [
-    {text: '1', cols: 1, rows: 1, color: 'lightgreen'},
-    {text: '2', cols: 1, rows: 1, color: 'lightgreen'},
-    {text: '3', cols: 1, rows: 1, color: 'lightgreen'},
-    {text: '4', cols: 1, rows: 1, color: 'lightgreen'},
-    {text: '5', cols: 1, rows: 1, color: 'lightgreen'},
-    {text: '6', cols: 1, rows: 1, color: 'lightgreen'},
-    {text: '7', cols: 1, rows: 1, color: 'lightgreen'},
-    {text: '8', cols: 1, rows: 1, color: 'lightgreen'},
-    {text: '9', cols: 1, rows: 1, color: 'lightgreen'},
-    {text: '10', cols: 1, rows: 1, color: 'lightgreen'},
-    {text: '11', cols: 1, rows: 1, color: 'lightgreen'},
-  ];
-
+async ngOnInit() {
+  await this.getConfig();
+  await this.createTiles();
+  await this.validateData();
+  }
 }
