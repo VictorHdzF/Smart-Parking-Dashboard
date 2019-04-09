@@ -11,6 +11,8 @@ import { ViewsModule } from './views/views.module';
 import { SharedModule } from './shared/shared.module';
 import { ErrorModule } from './views/errors/error.module';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+import { OccupiedService } from './occupied.service'
 
 // main layout
 import { NavigationModule } from './main-layout/navigation/navigation.module';
@@ -25,6 +27,7 @@ import { NavigationModule } from './main-layout/navigation/navigation.module';
     }),
     BrowserModule,
     HttpClientModule,
+    HttpModule,
     BrowserAnimationsModule,
     NavigationModule,
     AppRoutes,
@@ -36,7 +39,7 @@ import { NavigationModule } from './main-layout/navigation/navigation.module';
     FormsModule, 
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [OccupiedService],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA ]
 })

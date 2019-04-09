@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MatGridTile } from '@angular/material';
-import { forEach } from '@angular/router/src/utils/collection';
-
+import { delay } from 'q';
+//import { MatGridTile } from '@angular/material';
 
 export interface Tile {
-  color: "lightgreen";
+  color: string;
   cols: 1;
   rows: 1;
   text: string;
@@ -57,37 +56,23 @@ async createTiles(){
   }
 }
 
-/*async validateData(){
-  console.log("hola");
-  this.lots.forEach(function (value: { occupied: boolean; spaceID: number; }){
-    if(value.occupied){
-      this.tiles.forEach(function (value2: { ID: number; color: string; }){
-        if(value.spaceID == value2.ID){
-          value2.color = "red";
-          console.log(value2.ID.toString());
+validateData = async() =>{
+  console.log("sync")
+  for(var j = 0; j < this.lots.length; j++){
+    if(this.lots[j].occupied){
+      for(var k = 0; k < this.tiles.length; k++){
+        if(this.lots[j].spaceID == this.tiles[k].ID ){
+          this.tiles[k].color = "red";
         }
-      });
+      }
     }
-  });
-}*/
-
-async validateData(){
-  console.log("hola");
-  this.lots.forEach(function (value: { occupied: boolean; spaceID: number; }){
-    if(value.occupied){
-      this.tiles.forEach(function (value2: { ID: number; color: string; }){
-        if(value.spaceID == value2.ID){
-          value2.color = "red";
-          console.log(value2.ID.toString());
-        }
-      });
-    }
-  });
+  }
 }
 
 async ngOnInit() {
   await this.getConfig();
   await this.createTiles();
-  await this.validateData();
+  await delay(1600);
+  this.validateData();
   }
 }
