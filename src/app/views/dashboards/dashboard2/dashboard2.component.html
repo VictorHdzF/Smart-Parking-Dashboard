@@ -1,21 +1,38 @@
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#YT" role="tab" aria-controls="home" aria-selected="true">YT</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#A1" role="tab" aria-controls="profile" aria-selected="false">A1</a>
+  </li>
+</ul>
+
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+<p>Youtube Video</p>
 <mat-grid-list cols="11" rowHeight="100px">
   <mat-grid-tile
-      *ngFor="let tile of tiles"
+      *ngFor="let tile of ytTiles"
       [colspan]="tile.cols"
       [rowspan]="tile.rows"
       [style.background]="tile.color">
       {{tile.text}}
   </mat-grid-tile>
 </mat-grid-list>
-<!-- 
-  <br>
+<br><br>
+<p>Estacionamiento A1</p>
 <mat-grid-list cols="11" rowHeight="100px">
   <mat-grid-tile
-      *ngFor="let tile of tiles"
+      *ngFor="let tile of a1Tiles"
       [colspan]="tile.cols"
       [rowspan]="tile.rows"
       [style.background]="tile.color">
-    2 x {{tile.text}}
+      {{tile.text}}
   </mat-grid-tile>
 </mat-grid-list>
--->
+  </div>
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+  ...
+  </div>
+</div>
+
